@@ -24,7 +24,6 @@
 // Form submit toast trigger
 const form = document.getElementById('contact-form');
 const toast = document.getElementById('form-toast');
-
 let toastTimer;
 
 function showToast(message, type = 'success') {
@@ -38,17 +37,17 @@ function showToast(message, type = 'success') {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const data = new FormData(form);
-
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      body: data
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(Object.fromEntries(data))
     });
-
     const result = await response.json();
-
     if (result.success) {
       showToast('Message sent! I\'ll be in touch soon.');
       form.reset();
