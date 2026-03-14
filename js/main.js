@@ -20,3 +20,42 @@
     });
   });
 })();
+
+// Form submit toast trigger
+const form = document.getElementById('contact-form');
+const toast = document.getElementById('form-toast');
+
+let toastTimer;
+
+function showToast(message, type = 'success') {
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.className = `toast toast--${type} toast--visible`;
+  toastTimer = setTimeout(() => {
+    toast.className = 'toast';
+  }, 4000);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      showToast('Message sent! I\'ll be in touch soon.');
+      form.reset();
+    } else {
+      showToast('Something went wrong. Please try again.', 'error');
+    }
+  } catch (err) {
+    showToast('Something went wrong. Please try again.', 'error');
+  }
+});

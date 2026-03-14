@@ -574,6 +574,38 @@ nav a.active {
   outline-offset: 3px;
 }
 
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + var(--space-8)));
+  background: var(--color-navy-700);
+  color: var(--color-white);
+  font-family: var(--type-body-family);
+  font-size: var(--type-body-small-size);
+  font-weight: var(--weight-semibold);
+  padding: var(--padding-sm) var(--padding-xl);
+  border-radius: var(--space-1);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast--error {
+  border-color: hsl(0, 70%, 65%);
+}
+
 /* ============================================================
      LAYOUT UTILITIES
      ============================================================ */
