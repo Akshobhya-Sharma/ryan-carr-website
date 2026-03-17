@@ -28,18 +28,46 @@
         <a href="index.html" class="site-logo" aria-label="Ryan Carr home">
           <img src="images/RC.svg" alt="Ryan Carr" />
         </a>
-        <nav>
+
+        <nav class="nav-desktop" aria-label="Primary navigation">
           <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
+
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+        >
+          <i class="ph ph-list icon-lg icon-open" aria-hidden="true"></i>
+          <i class="ph ph-x icon-lg icon-close" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
+    <nav
+      class="nav-drawer"
+      id="nav-drawer"
+      aria-label="Mobile navigation"
+      aria-hidden="true"
+    >
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
 
     <main>
       <section class="global-content-bg" id="contact">
@@ -59,15 +87,6 @@
             >
               <i class="ph-fill ph-facebook-logo icon-md"></i>
               <span class="body-small">facebook</span>
-            </a>
-            <a
-              href="https://x.com/ryanawcarr"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="contact-social-link"
-            >
-              <i class="ph-fill ph-twitter-logo icon-md"></i>
-              <span class="body-small">X (formerly Twitter)</span>
             </a>
           </div>
           <form
@@ -131,7 +150,9 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn-submit">Send Message</button>
+            <button type="submit" class="btn-primary btn-submit">
+              Send Message
+            </button>
           </form>
         </div>
       </section>

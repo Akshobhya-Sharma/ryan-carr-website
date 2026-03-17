@@ -8,10 +8,14 @@
 :root {
   --color-navy-500: hsl(224, 34%, 34%);
   --color-navy-700: hsl(222, 33%, 20%);
+  --color-navy-800: hsl(222, 33%, 14%);
   --color-grey-900: hsl(0, 6%, 32%);
   --color-white: hsl(0, 0%, 100%);
   --color-white-20: hsla(0, 0%, 100%, 0.2);
   --color-white-80: hsla(0, 0%, 100%, 0.8);
+  --color-overlay: hsla(0, 0%, 0%, 0.5);
+  --color-error: hsl(0, 70%, 65%);
+  --color-success: hsl(150, 50%, 55%);
 }
 
 /* ------------------------------------------------------------
@@ -20,13 +24,13 @@
 :root {
   /* Surfaces */
   --surface-nav: var(--color-navy-500);
+  --surface-drawer: var(--color-navy-800);
   --surface-footer: var(--color-navy-500);
   --surface-content: hsla(0, 6%, 32%, 0.94);
 
   /* Navigation */
   --nav-text: var(--color-white-80);
   --nav-text-hover: var(--color-white);
-  --nav-bg-default: transparent;
   --nav-bg-hover: var(--color-navy-700);
   --nav-bg-active: var(--color-navy-700);
 
@@ -46,16 +50,13 @@
      TYPOGRAPHY — Base
      ------------------------------------------------------------ */
 :root {
-  /* Families */
   --font-display: "Josefin Sans", sans-serif;
   --font-body: "Source Sans 3", sans-serif;
 
-  /* Weights */
   --weight-regular: 400;
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Fluid sizes */
   --size-h1: clamp(2.74rem, 2.342rem + 1.99vw, 4.13rem);
   --size-h2: clamp(2.34rem, 2.072rem + 1.34vw, 3.28rem);
   --size-h3: clamp(2rem, 1.828rem + 0.86vw, 2.6rem);
@@ -70,7 +71,6 @@
      TYPOGRAPHY — Semantic
      ------------------------------------------------------------ */
 :root {
-  /* Headings */
   --type-heading-family: var(--font-display);
   --type-heading-weight: var(--weight-bold);
   --type-h1-size: var(--size-h1);
@@ -80,13 +80,11 @@
   --type-h5-size: var(--size-h5);
   --type-h6-size: var(--size-h6);
 
-  /* Body */
   --type-body-family: var(--font-body);
   --type-body-size: var(--size-body);
   --type-body-weight: var(--weight-regular);
   --type-body-small-size: var(--size-body-small);
 
-  /* Nav */
   --type-nav-family: var(--font-body);
   --type-nav-size: var(--size-body);
   --type-nav-weight: var(--weight-semibold);
@@ -97,62 +95,65 @@
      SPACING — Base (4px grid, rem)
      ------------------------------------------------------------ */
 :root {
-  --space-1: 0.25rem; /*   4px */
-  --space-2: 0.5rem; /*   8px */
-  --space-3: 0.75rem; /*  12px */
-  --space-4: 1rem; /*  16px */
-  --space-5: 1.25rem; /*  20px */
-  --space-6: 1.5rem; /*  24px */
-  --space-8: 2rem; /*  32px */
-  --space-10: 2.5rem; /*  40px */
-  --space-12: 3rem; /*  48px */
-  --space-16: 4rem; /*  64px */
-  --space-20: 5rem; /*  80px */
-  --space-30: 7.5rem; /* 120px */
-  --space-40: 10rem; /* 160px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-30: 7.5rem;
+  --space-40: 10rem;
 }
 
 /* ------------------------------------------------------------
      SPACING & LAYOUT — Semantic
      ------------------------------------------------------------ */
 :root {
-  /* Gaps */
   --gap-xs: var(--space-2);
   --gap-sm: var(--space-3);
   --gap-md: var(--space-4);
   --gap-lg: var(--space-6);
   --gap-xl: var(--space-8);
 
-  /* Padding */
   --padding-xs: var(--space-2);
   --padding-sm: var(--space-3);
   --padding-md: var(--space-4);
   --padding-lg: var(--space-6);
   --padding-xl: var(--space-8);
 
-  /* Section padding */
   --section-padding-sm: var(--space-10);
   --section-padding-md: var(--space-12);
   --section-padding-lg: var(--space-20);
   --section-padding-xl: var(--space-30);
   --section-padding-2xl: var(--space-40);
 
-  /* Layout */
   --container-max: 90rem;
   --container-text: 65ch;
   --container-narrow: 45rem;
 
-  /* Nav */
   --nav-height: var(--space-12);
   --nav-padding-x: var(--space-8);
+  --nav-drawer-max-width: 20rem;
 
-  /* Icons */
   --icon-xs: 1rem;
   --icon-sm: 1.25rem;
   --icon-md: 1.5rem;
   --icon-lg: 2rem;
   --icon-xl: 2.5rem;
   --icon-2xl: 3rem;
+
+  --image-constrained-height: 50rem;
+
+  /* Z INDEX TOKENS */
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-drawer: 300;
+  --z-toast: 400;
 }
 
 /* ============================================================
@@ -242,7 +243,6 @@ hr {
 
 /* ============================================================
      ICONS — Phosphor
-     Usage: <i class="ph ph-heart icon-md"></i>
      ============================================================ */
 i[class*="ph"] {
   font-size: var(--icon-size, var(--icon-md));
@@ -273,7 +273,7 @@ i[class*="ph"] {
 header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-header);
   padding: 0 var(--nav-padding-x);
   background: var(--surface-nav);
   border-bottom: var(--border-width-thin) solid var(--border-subtle);
@@ -309,7 +309,6 @@ footer {
   padding: var(--padding-md) var(--padding-xl);
   background: var(--surface-footer);
   border-top: var(--border-width-thin) solid var(--border-subtle);
-  text-align: left;
   color: var(--text-on-navy);
 }
 
@@ -329,7 +328,29 @@ footer p {
   margin: 0 auto;
 }
 
-nav ul {
+/* Shared nav link styles — desktop and drawer */
+nav a,
+.nav-drawer a {
+  font-family: var(--type-nav-family);
+  font-weight: var(--type-nav-weight);
+  text-transform: var(--type-nav-transform);
+  color: var(--nav-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+nav a:hover,
+.nav-drawer a:hover {
+  color: var(--nav-text-hover);
+}
+
+nav a.active,
+.nav-drawer a.active {
+  color: var(--nav-text-hover);
+}
+
+/* Desktop nav specific */
+.nav-desktop ul {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -338,17 +359,12 @@ nav ul {
   height: 100%;
 }
 
-nav li {
+.nav-desktop li {
   height: 100%;
 }
 
-nav a {
-  font-family: var(--type-nav-family);
+.nav-desktop a {
   font-size: var(--type-nav-size);
-  font-weight: var(--type-nav-weight);
-  text-transform: var(--type-nav-transform);
-  color: var(--nav-text);
-  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -356,14 +372,94 @@ nav a {
   padding: var(--padding-md);
 }
 
-nav a:hover {
-  color: var(--nav-text-hover);
+.nav-desktop a:hover {
   box-shadow: inset 0 calc(-1 * var(--nav-border-width)) 0 var(--nav-bg-hover);
 }
 
-nav a.active {
+.nav-desktop a.active {
   background: var(--nav-bg-active);
-  color: var(--nav-text-hover);
+}
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  padding: var(--padding-sm);
+  margin-left: auto;
+  line-height: 0;
+}
+
+.hamburger:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+/* Icon swap via aria-expanded — no JS needed for this */
+.hamburger[aria-expanded="false"] .icon-close,
+.hamburger[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+/* ============================================================
+     MOBILE NAV DRAWER
+     ============================================================ */
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 85vw;
+  max-width: var(--nav-drawer-max-width);
+  background: var(--surface-drawer);
+  border-left: var(--border-width-thin) solid var(--border-subtle);
+  z-index: var(--z-drawer);
+  padding: var(--section-padding-md) var(--padding-xl);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+}
+
+.nav-drawer[aria-hidden="false"] {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.nav-drawer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  margin-top: var(--space-8);
+}
+
+.nav-drawer a {
+  font-size: var(--type-h6-size);
+  display: block;
+  padding: var(--padding-md) var(--padding-sm);
+  border-bottom: var(--border-width-thin) solid var(--color-white-20);
+}
+
+/* Overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.nav-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ============================================================
@@ -467,7 +563,7 @@ nav a.active {
   font-size: var(--type-body-size);
   font-weight: var(--type-body-weight);
   color: var(--color-white);
-  background: hsla(0, 0%, 100%, 0.08);
+  background: var(--color-white-20);
   border: var(--border-width-thin) solid var(--color-white-20);
   border-radius: var(--space-1);
   padding: var(--padding-sm) var(--padding-md);
@@ -483,13 +579,11 @@ nav a.active {
   line-height: 1.6;
 }
 
-/* Placeholder */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
   color: var(--color-white-20);
 }
 
-/* Focus */
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
@@ -497,20 +591,22 @@ nav a.active {
   background: hsla(0, 0%, 100%, 0.12);
 }
 
-/* Validation — only show after user interaction */
 .form-group input:not(:placeholder-shown):invalid,
 .form-group textarea:not(:placeholder-shown):invalid {
-  border-color: hsl(0, 70%, 65%);
+  border-color: var(--color-error);
 }
 
 .form-group input:not(:placeholder-shown):valid,
 .form-group textarea:not(:placeholder-shown):valid {
-  border-color: hsl(150, 50%, 55%);
+  border-color: var(--color-success);
 }
 
-/* Submit button */
-.btn-submit {
-  align-self: flex-start;
+/* Primary button — reusable across pages */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: var(--gap-sm);
   font-family: var(--type-body-family);
   font-size: var(--type-body-size);
   font-weight: var(--weight-semibold);
@@ -519,20 +615,26 @@ nav a.active {
   border: var(--border-width-thin) solid var(--border-subtle);
   border-radius: var(--space-1);
   padding: var(--padding-sm) var(--padding-xl);
+  text-decoration: none;
   cursor: pointer;
   transition:
     background 0.2s ease,
     border-color 0.2s ease;
 }
 
-.btn-submit:hover {
+.btn-primary:hover {
   background: var(--color-navy-700);
   border-color: var(--color-white-20);
 }
 
-.btn-submit:focus-visible {
+.btn-primary:focus-visible {
   outline: 2px solid var(--color-white);
   outline-offset: 3px;
+}
+
+/* Submit button — extends btn-primary, aligns left in flex context */
+.btn-submit {
+  align-self: flex-start;
 }
 
 /* Social links */
@@ -545,14 +647,12 @@ nav a.active {
   background: var(--color-white-20);
   border: var(--border-width-thin) solid var(--color-white-20);
   border-radius: var(--space-1);
-  padding: var(--padding-xs) var(--padding-xs);
+  padding: var(--padding-xs);
+  width: fit-content;
   transition:
     background 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease;
-  cursor: pointer;
-  max-width: fit-content;
-  min-width: 200px;
 }
 
 .contact-social-link:hover {
@@ -566,7 +666,7 @@ nav a.active {
 }
 
 .contact-social-link:hover .ph-twitter-logo {
-  color: #000000;
+  color: var(--color-grey-900);
 }
 
 .contact-social-link:focus-visible {
@@ -574,7 +674,7 @@ nav a.active {
   outline-offset: 3px;
 }
 
-/* Toast notification */
+/* Toast */
 .toast {
   position: fixed;
   bottom: var(--space-8);
@@ -593,7 +693,7 @@ nav a.active {
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
-  z-index: 999;
+  z-index: var(--z-toast);
   pointer-events: none;
 }
 
@@ -603,7 +703,7 @@ nav a.active {
 }
 
 .toast--error {
-  border-color: hsl(0, 70%, 65%);
+  border-color: var(--color-error);
 }
 
 /* ============================================================
@@ -617,7 +717,6 @@ nav a.active {
 
 .layout-two-col {
   display: flex;
-  flex-direction: var(--layout-direction, row);
   gap: var(--layout-gap, var(--gap-md));
 }
 
@@ -629,9 +728,16 @@ nav a.active {
 .layout-two-col > img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center top;
   border-radius: var(--space-2);
+}
+
+/* Lessons page image height constraint */
+.lessons-image {
+  max-height: var(--image-constrained-height);
+  object-fit: contain;
+  object-position: center top;
 }
 
 .layout-row {
@@ -658,21 +764,15 @@ nav a.active {
   justify-content: end;
 }
 
+/* Music page sidebar */
 .layout-grid-content-sidebar {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--layout-gap, var(--gap-md));
-  height: calc((180px * 3) + (var(--gap-md) * 2));
 }
 
-.layout-grid-content-sidebar > div {
-  height: 100%;
-  overflow: hidden;
-}
-
-.layout-grid-content-sidebar > div > img {
-  width: 100%;
-  height: 100%;
+.music-sidebar-image {
+  height: calc((180px * 3) + (var(--gap-lg) * 2));
   object-fit: cover;
   object-position: center top;
   border-radius: var(--space-2);
@@ -705,19 +805,77 @@ nav a.active {
 /* ============================================================
      RESPONSIVE
      ============================================================ */
-@media (max-width: 60rem) {
+
+/* — Tablet: ≤64rem ——————————————————————————————————————————— */
+@media (max-width: 64rem) {
   .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .video-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 30rem) {
+/* — Mobile: ≤48rem ——————————————————————————————————————————— */
+@media (max-width: 48rem) {
+  /* Nav */
+  .nav-desktop {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Layout */
+  main {
+    padding: var(--section-padding-md) var(--padding-md);
+  }
+
+  .global-content-bg {
+    padding: var(--padding-lg);
+  }
+
+  footer {
+    padding: var(--padding-md);
+  }
+
+  /* Two-col stacks, image always on top */
+  .layout-two-col {
+    flex-direction: column;
+  }
+
+  .layout-two-col > img {
+    order: -1;
+    width: 100%;
+    height: auto;
+    max-height: var(--image-constrained-height);
+  }
+
+  /* Lessons image — same token, no override needed since inline style is removed */
+  .lessons-image {
+    max-height: var(--image-constrained-height);
+  }
+
+  /* Grids go single col */
+  .video-grid,
   .bento-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Music sidebar — stack soundcloud, hide image */
+  .layout-grid-content-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .music-sidebar-image {
+    display: none;
   }
 }
 
 /* ============================================================
      ANIMATIONS
-     — Add animation/transition rules here when ready
      ============================================================ */
