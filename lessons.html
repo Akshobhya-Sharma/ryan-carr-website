@@ -28,7 +28,8 @@
         <a href="index.html" class="site-logo" aria-label="Ryan Carr home">
           <img src="images/RC.svg" alt="Ryan Carr" />
         </a>
-        <nav>
+
+        <nav class="nav-desktop" aria-label="Primary navigation">
           <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -38,8 +39,35 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
+
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+        >
+          <i class="ph ph-list icon-lg icon-open" aria-hidden="true"></i>
+          <i class="ph ph-x icon-lg icon-close" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
+    <nav
+      class="nav-drawer"
+      id="nav-drawer"
+      aria-label="Mobile navigation"
+      aria-hidden="true"
+    >
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="lessons.html" class="active">Lessons</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
 
     <main>
       <section class="global-content-bg" id="lessons">
@@ -74,11 +102,15 @@
               For more information or to book your first lesson get in touch
               with Ryan!
             </p>
+            <a href="contact.html" class="btn-primary">
+              Book a Lesson
+              <i class="ph ph-arrow-right icon-sm" aria-hidden="true"></i>
+            </a>
           </div>
 
           <img
             src="images/learn to play music.webp"
-            style="height: 720px"
+            class="lessons-image"
             alt="Ryan Carr playing with a dog, holding a mandolin."
           />
         </div>
